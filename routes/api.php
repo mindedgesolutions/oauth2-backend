@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\FactoryController;
+use App\Http\Controllers\Api\MessageController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,4 +16,8 @@ Route::middleware(['auth:api'])->group(function () {
 
     Route::apiResource('users', UserController::class);
     Route::apiResource('factories', FactoryController::class);
+    Route::controller(MessageController::class)->prefix('messages')->group(function () {
+        Route::post('send', 'send');
+        Route::get('{userId}', 'conversation');
+    });
 });

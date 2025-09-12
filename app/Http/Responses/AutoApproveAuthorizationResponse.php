@@ -4,7 +4,6 @@ namespace App\Http\Responses;
 
 use Laravel\Passport\Contracts\AuthorizationViewResponse as AuthorizationViewResponseContract;
 use Illuminate\Contracts\Support\Responsable;
-use Illuminate\Http\Request;
 use League\OAuth2\Server\AuthorizationServer;
 use Nyholm\Psr7\Response;
 

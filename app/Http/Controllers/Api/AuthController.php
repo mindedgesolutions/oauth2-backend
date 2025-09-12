@@ -33,16 +33,18 @@ class AuthController extends Controller
 
     public function login()
     {
-        $query = http_build_query([
-            'client_id'     => request()->query('client_id'),
-            'redirect_uri'  => request()->query('redirect_uri'),
-            'response_type' => 'code',
-            'scope'         => request()->query('scope'),
-            'code_challenge' => request()->query('code_challenge'),
-            'code_challenge_method' => 'S256',
-        ]);
+        if (Auth::attempt(['email' => request()->query('username'), 'password' => request()->query('password')])) {
+            $query = http_build_query([
+                'client_id'     => request()->query('client_id'),
+                'redirect_uri'  => request()->query('redirect_uri'),
+                'response_type' => 'code',
+                'scope'         => request()->query('scope'),
+                'code_challenge' => request()->query('code_challenge'),
+                'code_challenge_method' => 'S256',
+            ]);
 
-        return redirect('/oauth/authorize?' . $query);
+            return redirect('/oauth/authorize?' . $query);
+        }
     }
 
     // ------------------------------

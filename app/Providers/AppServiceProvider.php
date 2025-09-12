@@ -26,6 +26,5 @@ class AppServiceProvider extends ServiceProvider
         Passport::ignoreRoutes();
         Passport::enableImplicitGrant();
         Passport::tokensExpireIn(CarbonInterval::days(10));
-        Passport::refreshTokensExpireIn(CarbonInterval::year(1));
     }
 }
