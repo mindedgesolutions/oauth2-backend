@@ -15,19 +15,19 @@ class MessageController extends Controller
     public function send(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'receiver' => ['required', 'exists:users,id'],
+            'receiver_id' => ['required', 'exists:users,id'],
             'message' => ['required', 'max:1000'],
         ], [
             '*.required' => ':Attribute is required',
-            'receiver.exists' => 'Receiver not found',
+            'receiver_id.exists' => 'Receiver not found',
             'message.max' => 'Max. 1000 characters allowed',
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => $validator->errors()], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         $message = Message::create([
-            'sender_id' => Auth::id(),
-            'receiver_id' => $request->receiver,
+            'sender_id' => $request->sender_id ?? Auth::id(),
+            'receiver_id' => $request->receiver_id,
             'content' => $request->message,
         ]);
 
